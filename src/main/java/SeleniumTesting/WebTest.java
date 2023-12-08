@@ -3,6 +3,7 @@ package SeleniumTesting;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -132,8 +133,31 @@ public class WebTest {
 		
 		DriverSetup driverSetup = new DriverSetup();
 		WriteExcelFile wef = new WriteExcelFile();
+		Scanner sc = new Scanner(System.in);
 		
-		driver = driverSetup.setUpWebDriver();
+		int ch;
+		
+		do {
+			
+			System.out.println("\n\nEnter 1. for Chrome\nEnter 2. for Edge\nEnter your choice : ");
+			
+			ch = sc.nextInt();
+			
+			if(ch != 1 && ch != 2) {
+				
+				System.out.println("\n\nInvalid Choice !!! Enter choice again !!!");
+				
+			}
+			
+			else {
+				
+				break;
+				
+			}
+			
+		} while(true);
+		
+		driver = driverSetup.setUpWebDriver(ch);
 		
 		WebTest wt = new WebTest();
 		
