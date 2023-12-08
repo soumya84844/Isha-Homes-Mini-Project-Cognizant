@@ -1,7 +1,10 @@
 package SeleniumTesting;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 
 public class WebTest {
@@ -11,6 +14,28 @@ public class WebTest {
 	public void navigateToURL() {
 		
 		driver.get("https://ishahomes.com");
+		
+	}
+	
+	public void handleAlert() {
+		
+		try {
+			
+			Alert alert = driver.switchTo().alert();
+			
+			System.out.println(alert.getText());
+			
+			alert.sendKeys(Credentials.userName + "\t" + Credentials.password);
+			
+			alert.accept();
+			
+		}
+		
+		catch(Exception e) {
+			
+			System.out.println("No Alert");
+			
+		}
 		
 	}
 	
@@ -40,37 +65,83 @@ public class WebTest {
 		
 	}
 	
-	public void listCompletedProjects() {
+	public List<String> listCompletedProjects() {
 		
 		List<WebElement> projects = driver.findElements(By.xpath("//div[@id='boosted-tab-0']/div[1]/section/div/div/div/div/div/div/div/div/div/div/div[2]/div/div[1]/div[1]/h2/a"));
 		
-		System.out.println("Total no. of Completed Projects = " + projects.size());
+		System.out.println("\n\nTotal no. of Completed Projects = " + projects.size());
 		
-		System.out.println("Names of First 5 Completed Projects ---------------- ");
+		System.out.println("\n\nNames of First 5 Completed Projects ---------------- ");
+		
+		List<String> projectNames = new ArrayList<String>();
 		
 		for(int i = 0; i < 5; i++) {
 			
 			System.out.println(projects.get(i).getText());
+			projectNames.add(projects.get(i).getText());
 		
 		}
+		
+		return projectNames;
 		
 	}
 	
 	public void clickEnquireNow() {
 		
-		driver.findElement(By.xpath("//div[@class='mci-ph enq-tooltip-new']")).click();
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		
+		jse.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//ul[@class='elementor-icon-list-items']/li[1]/a")));
+		
+		driver.findElement(By.xpath("/html/body/footer/section/div/div/div/section[1]/div/div[2]/div/div[2]/div/ul/li[1]/a")).click();
 		
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
+	public void verifyContactUs() {
+		
+		if(driver.findElement(By.xpath("//h1[@class='elementor-heading-title elementor-size-default']")).getText().equals("CONTACT US")) {
+			
+			System.out.println("\n\nContact Us Verified\n\n");
+			
+		}
+		
+	}
+	
+	public void printEmail() {
+		
+		System.out.println("Email Address for Contact : " + driver.findElement(By.xpath("//a[contains(@href, 'mailto')]")).getText() + "\n\n");
+		
+	}
+	
+	public void captureScreenshot() throws Exception {
+		
+		File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		
+		FileUtils.copyFile(file, new File(System.getProperty("user.dir") + "\\screenshot\\screenshot.png"));
+		
+//		String screenshotBase64 = ((TakesScreenshot)driver).getScreenshotAs(System.getProperty("user.dir") + "\\screenshot\\screenshot.png");
+		
+	}
+	
+	public void closeBrowser() {
+		
+		driver.quit();
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
 		
 		DriverSetup driverSetup = new DriverSetup();
+		WriteExcelFile wef = new WriteExcelFile();
 		
 		driver = driverSetup.setUpWebDriver();
 		
 		WebTest wt = new WebTest();
 		
 		wt.navigateToURL();
+		
+		Thread.sleep(10000);
+		
+		wt.handleAlert();
 		
 		Thread.sleep(5000);
 		
@@ -92,11 +163,25 @@ public class WebTest {
 		
 		wt.scroll();
 		
-		wt.listCompletedProjects();
+		wef.writeExcelData(wt.listCompletedProjects());
 		
 		Thread.sleep(2000);
 		
 		wt.clickEnquireNow();
+		
+		Thread.sleep(10000);
+		
+		wt.closePopup();
+		
+		Thread.sleep(1000);
+		
+		wt.verifyContactUs();
+		
+		wt.printEmail();
+		
+		wt.captureScreenshot();
+		
+		wt.closeBrowser();
 		
 //		System.out.println("Done");
 
