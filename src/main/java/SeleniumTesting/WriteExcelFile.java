@@ -1,6 +1,5 @@
 package SeleniumTesting;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 

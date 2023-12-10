@@ -18,27 +18,27 @@ public class WebTest {
 		
 	}
 	
-	public void handleAlert() {
-		
-		try {
-			
-			Alert alert = driver.switchTo().alert();
-			
-			System.out.println(alert.getText());
-			
-			alert.sendKeys(Credentials.userName + "\t" + Credentials.password);
-			
-			alert.accept();
-			
-		}
-		
-		catch(Exception e) {
-			
-			System.out.println("No Alert");
-			
-		}
-		
-	}
+//	public void handleAlert() {
+//		
+//		try {
+//			
+//			Alert alert = driver.switchTo().alert();
+//			
+//			System.out.println(alert.getText());
+//			
+//			alert.sendKeys(Credentials.userName + "\t" + Credentials.password);
+//			
+//			alert.accept();
+//			
+//		}
+//		
+//		catch(Exception e) {
+//			
+//			System.out.println("No Alert");
+//			
+//		}
+//		
+//	}
 	
 	public void closePopup() {
 		
@@ -165,7 +165,7 @@ public class WebTest {
 		
 		Thread.sleep(10000);
 		
-		wt.handleAlert();
+//		wt.handleAlert();
 		
 		Thread.sleep(5000);
 		
@@ -206,6 +206,8 @@ public class WebTest {
 		wt.captureScreenshot();
 		
 		wt.closeBrowser();
+		
+		sc.close();
 		
 //		System.out.println("Done");
 
