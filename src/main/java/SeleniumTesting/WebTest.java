@@ -46,6 +46,30 @@ public class WebTest {
 		
 	}
 	
+	public void closeLiveChat() {
+		
+		try {
+			
+			driver.findElement(By.id("livchat_close")).click();
+			
+		}
+		
+		catch(Exception e) {}
+		
+	}
+	
+	public void closeChatPopup() {
+		
+		try {
+			
+			driver.findElement(By.className("close-indicator")).click();
+			
+		}
+		
+		catch(Exception e) {}
+		
+	}
+	
 	public void maximizeBrowser() {
 		
 		driver.manage().window().maximize();
@@ -174,6 +198,8 @@ public class WebTest {
 		Thread.sleep(10000);
 		
 		wt.closePopup();
+		wt.closeLiveChat();
+		wt.closeChatPopup();
 		
 		Thread.sleep(2000);
 		
@@ -182,6 +208,8 @@ public class WebTest {
 		Thread.sleep(10000);
 		
 		wt.closePopup();
+		wt.closeLiveChat();
+		wt.closeChatPopup();
 		
 		Thread.sleep(3000);
 		
@@ -196,6 +224,8 @@ public class WebTest {
 		Thread.sleep(10000);
 		
 		wt.closePopup();
+		wt.closeLiveChat();
+		wt.closeChatPopup();
 		
 		Thread.sleep(1000);
 		
