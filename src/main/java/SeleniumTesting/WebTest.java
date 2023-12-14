@@ -42,7 +42,13 @@ public class WebTest {
 	
 	public void closePopup() {
 		
-		driver.findElement(By.xpath("//a[@role='button']")).click();
+		try {
+			
+			driver.findElement(By.xpath("//a[@role='button']")).click();
+			
+		}
+		
+		catch(Exception e) {}
 		
 	}
 	
@@ -187,7 +193,7 @@ public class WebTest {
 		
 		wt.navigateToURL();
 		
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		
 //		wt.handleAlert();
 		
@@ -195,7 +201,7 @@ public class WebTest {
 		
 		wt.maximizeBrowser();
 		
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		
 		wt.closePopup();
 		wt.closeLiveChat();
@@ -205,7 +211,7 @@ public class WebTest {
 		
 		wt.navigateToCompletedProjectsPage();
 		
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		
 		wt.closePopup();
 		wt.closeLiveChat();
@@ -221,7 +227,7 @@ public class WebTest {
 		
 		wt.clickEnquireNow();
 		
-		Thread.sleep(10000);
+		Thread.sleep(5000);
 		
 		wt.closePopup();
 		wt.closeLiveChat();
