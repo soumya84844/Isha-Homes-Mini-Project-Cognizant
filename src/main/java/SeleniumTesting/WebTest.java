@@ -1,7 +1,6 @@
 package SeleniumTesting;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,41 +13,25 @@ public class WebTest {
 	
 	public void navigateToURL() {
 		
+		System.out.println("\n\nFetching Isha Homes page ........");
 		driver.get("https://ishahomes.com");
 		
 	}
-	
-//	public void handleAlert() {
-//		
-//		try {
-//			
-//			Alert alert = driver.switchTo().alert();
-//			
-//			System.out.println(alert.getText());
-//			
-//			alert.sendKeys(Credentials.userName + "\t" + Credentials.password);
-//			
-//			alert.accept();
-//			
-//		}
-//		
-//		catch(Exception e) {
-//			
-//			System.out.println("No Alert");
-//			
-//		}
-//		
-//	}
 	
 	public void closePopup() {
 		
 		try {
 			
+			System.out.println("\n\nClosing pop-up ............");
 			driver.findElement(By.xpath("//a[@role='button']")).click();
 			
 		}
 		
-		catch(Exception e) {}
+		catch(Exception e) {
+			
+			System.out.println("\n\nPop-up not found !!!");
+			
+		}
 		
 	}
 	
@@ -56,11 +39,16 @@ public class WebTest {
 		
 		try {
 			
+			System.out.println("\n\nClosing Live Chat ........");
 			driver.findElement(By.id("livchat_close")).click();
 			
 		}
 		
-		catch(Exception e) {}
+		catch(Exception e) {
+			
+			System.out.println("\n\nLive Chat not found !!!");
+			
+		}
 		
 	}
 	
@@ -68,22 +56,29 @@ public class WebTest {
 		
 		try {
 			
+			System.out.println("\n\nClosing Chat Pop-up ............");
 			driver.findElement(By.className("close-indicator")).click();
 			
 		}
 		
-		catch(Exception e) {}
+		catch(Exception e) {
+			
+			System.out.println("\n\nChat Pop-up not found !!!");
+			
+		}
 		
 	}
 	
 	public void maximizeBrowser() {
 		
+		System.out.println("\n\nMaximizing Browser Window .........");
 		driver.manage().window().maximize();
 		
 	}
 	
 	public void navigateToCompletedProjectsPage() {
 		
+		System.out.println("\n\nNavigating to Completed Projects Page ...........");
 		driver.findElement(By.xpath("//li[@id='menu-item-25810']/a")).click();
 		
 	}
@@ -92,11 +87,13 @@ public class WebTest {
 		
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		
+		System.out.println("\n\nScrolling the page ......");
+		
 		jse.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//div[@class='listing-thumb']")));
 		
 	}
 	
-	public List<String> listCompletedProjects() {
+	public List<WebElement> listCompletedProjects() {
 		
 		List<WebElement> projects = driver.findElements(By.xpath("//div[@id='boosted-tab-0']/div[1]/section/div/div/div/div/div/div/div/div/div/div/div[2]/div/div[1]/div[1]/h2/a"));
 		
@@ -104,16 +101,13 @@ public class WebTest {
 		
 		System.out.println("\n\nNames of First 5 Completed Projects ---------------- ");
 		
-		List<String> projectNames = new ArrayList<String>();
-		
 		for(int i = 0; i < 5; i++) {
 			
 			System.out.println(projects.get(i).getText());
-			projectNames.add(projects.get(i).getText());
 		
 		}
 		
-		return projectNames;
+		return projects;
 		
 	}
 	
@@ -123,6 +117,8 @@ public class WebTest {
 		
 		jse.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//ul[@class='elementor-icon-list-items']/li[1]/a")));
 		
+		System.out.println("\n\nClicking Enquire Now .........");
+		
 		driver.findElement(By.xpath("/html/body/footer/section/div/div/div/section[1]/div/div[2]/div/div[2]/div/ul/li[1]/a")).click();
 		
 	}
@@ -131,7 +127,13 @@ public class WebTest {
 		
 		if(driver.findElement(By.xpath("//h1[@class='elementor-heading-title elementor-size-default']")).getText().equals("CONTACT US")) {
 			
-			System.out.println("\n\nContact Us Verified\n\n");
+			System.out.println("\n\nContact Us Verified");
+			
+		}
+		
+		else {
+			
+			System.out.println("\n\nContact Us not Verified !!!");
 			
 		}
 		
@@ -139,21 +141,25 @@ public class WebTest {
 	
 	public void printEmail() {
 		
-		System.out.println("Email Address for Contact : " + driver.findElement(By.xpath("//a[contains(@href, 'mailto')]")).getText() + "\n\n");
+		System.out.println("\n\nEmail Address for Contact : " + driver.findElement(By.xpath("//a[contains(@href, 'mailto')]")).getText());
 		
 	}
 	
 	public void captureScreenshot() throws Exception {
 		
+		System.out.println("\n\nCapturing Screenshot ..........");
+		
 		File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		
 		FileUtils.copyFile(file, new File(System.getProperty("user.dir") + "\\screenshot\\screenshot.png"));
 		
-//		String screenshotBase64 = ((TakesScreenshot)driver).getScreenshotAs(System.getProperty("user.dir") + "\\screenshot\\screenshot.png");
-		
+		System.out.println("\n\nScreenshot Captured !!!");
+				
 	}
 	
 	public void closeBrowser() {
+		
+		System.out.println("\n\nClosing Browser ...........");
 		
 		driver.quit();
 		
@@ -163,6 +169,7 @@ public class WebTest {
 		
 		DriverSetup driverSetup = new DriverSetup();
 		WriteExcelFile wef = new WriteExcelFile();
+		WebTest wt = new WebTest();
 		Scanner sc = new Scanner(System.in);
 		
 		int ch;
@@ -189,13 +196,7 @@ public class WebTest {
 		
 		driver = driverSetup.setUpWebDriver(ch);
 		
-		WebTest wt = new WebTest();
-		
 		wt.navigateToURL();
-		
-		Thread.sleep(5000);
-		
-//		wt.handleAlert();
 		
 		Thread.sleep(5000);
 		
@@ -244,8 +245,6 @@ public class WebTest {
 		wt.closeBrowser();
 		
 		sc.close();
-		
-//		System.out.println("Done");
 
 	}
 
