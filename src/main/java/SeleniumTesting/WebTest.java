@@ -95,7 +95,7 @@ public class WebTest {
 	
 	public List<WebElement> listCompletedProjects() {
 		
-		List<WebElement> projects = driver.findElements(By.xpath("//div[@id='boosted-tab-0']/div[1]/section/div/div/div/div/div/div/div/div/div/div/div[2]/div/div[1]/div[1]/h2/a"));
+		List<WebElement> projects = driver.findElements(By.xpath("//div[@id='boosted-tab-0']//h2[@class='item-title']/a"));
 		
 		System.out.println("\n\nTotal no. of Completed Projects = " + projects.size());
 		
@@ -119,7 +119,7 @@ public class WebTest {
 		
 		System.out.println("\n\nClicking Enquire Now .........");
 		
-		driver.findElement(By.xpath("/html/body/footer/section/div/div/div/section[1]/div/div[2]/div/div[2]/div/ul/li[1]/a")).click();
+		driver.findElement(By.xpath("//div[@data-id='898065d']//li[1]/a")).click();
 		
 	}
 	
