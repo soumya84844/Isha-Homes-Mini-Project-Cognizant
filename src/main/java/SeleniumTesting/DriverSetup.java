@@ -2,7 +2,9 @@ package SeleniumTesting;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 public class DriverSetup {
 	
@@ -12,13 +14,19 @@ public class DriverSetup {
 		
 		if(ch == 1) {
 			
-			driver = new ChromeDriver();
+			ChromeOptions chromeoption=new ChromeOptions();
+			chromeoption.addArguments("--headless=new");
+			
+			driver = new ChromeDriver(chromeoption);
 			
 		}
 		
 		else {
 			
-			driver = new EdgeDriver();
+			EdgeOptions edgeoption=new EdgeOptions();
+			edgeoption.addArguments("--headless=new");
+			
+			driver = new EdgeDriver(edgeoption);
 			
 		}
 		
